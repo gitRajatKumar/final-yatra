@@ -48,3 +48,32 @@ This endpoint registers a new user. It validates the incoming data and creates a
   }
 }
 ```
+
+## POST /users/login
+
+### Description
+This endpoint logs in an existing user. It validates the provided credentials and returns a token along with user information if authenticated.
+
+### Request Body
+- `email`: (string, required) Must be a valid email.
+- `password`: (string, required) Must be at least 6 characters.
+
+**Example:**
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "secret123"
+}
+```
+
+### Responses
+
+- **200 OK**
+  - Successfully logged in.
+  - Response includes a token and user details.
+  
+- **400 Bad Request**
+  - Data validation errors; response includes details about the issues.
+  
+- **401 Unauthorized**
+  - Incorrect email or password; response contains an error message.

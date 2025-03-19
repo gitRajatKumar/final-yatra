@@ -77,3 +77,48 @@ This endpoint logs in an existing user. It validates the provided credentials an
   
 - **401 Unauthorized**
   - Incorrect email or password; response contains an error message.
+
+## POST /captains/register
+
+### Description
+This endpoint registers a new captain. It validates the incoming data and creates a new captain record if validations pass.
+
+### Request Body
+- `fullname`: An object containing:
+  - `firstname`: (string, required) Must be at least 3 characters.
+  - `lastname`: (string, optional)
+- `email`: (string, required) Must be a valid email.
+- `password`: (string, required) Must be at least 6 characters.
+- `vehicle`: An object containing:
+  - `color`: (string, required) Must be at least 3 characters.
+  - `plate`: (string, required) Must be at least 3 characters.
+  - `capacity`: (number, required) Must be at least 1.
+  - `vehicleType`: (string, required) Must be one of `car`, `motorcycle`, or `auto`.
+
+**Example:**
+```json
+{
+  "fullname": {
+    "firstname": "Alice",
+    "lastname": "Smith"
+  },
+  "email": "alice.smith@example.com",
+  "password": "securePass123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "XYZ123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Responses
+
+- **201 Created**
+  - Captain successfully registered.
+  - Response includes a token and captain information.
+
+- **400 Bad Request**
+  - Validation errors or if the captain already exists.
+  - Response includes error details.
